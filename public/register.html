@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SecureValut</title>
+    <link rel="stylesheet" href="abyssal-glow-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-lock"></i>
+                <span>Secure Valut</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#help">Help</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-login" onclick="window.location.href='/login'">Log In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Create Account</h1>
+            <p>Join SecureValut to securely manage your files</p>
+            
+            <!-- Registration Form -->
+            <form class="converter-form" action="/register" method="POST">
+                <input type="text" class="file-input" name="name" placeholder="Full Name" required>
+                <input type="email" class="file-input" name="email" placeholder="Email Address" required>
+                <input type="password" class="file-input" name="password" placeholder="Password" required>
+                <button class="btn-primary" type="submit">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            </form>
+            
+            <div style="text-align: center; margin: 1rem 0; color: var(--cool-gray-mist);">or</div>
+            
+            <!-- Google Signup -->
+            <button class="btn-secondary" id="googleSignupBtn">
+                <i class="fab fa-google"></i>
+                Sign up with Google
+            </button>
+            
+            <p style="margin-top: 2rem; text-align: center;">
+                Already have an account? <a href="/login" style="color: var(--electric-aqua);">Log in</a>
+            </p>
+        </div>
+        <div class="hero-visual">
+            <div class="network-animation">
+                <div class="node node-center"></div>
+                <div class="node node-top"></div>
+                <div class="node node-right"></div>
+                <div class="node node-bottom"></div>
+                <div class="node node-left"></div>
+                <div class="connection-line line-1"></div>
+                <div class="connection-line line-2"></div>
+                <div class="connection-line line-3"></div>
+                <div class="connection-line line-4"></div>
+                <div class="lock-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <!-- Particle effect for Abyssal Glow theme -->
+                <div class="particles-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SecureShare. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add Google signup functionality
+        document.getElementById('googleSignupBtn').addEventListener('click', function() {
+            window.location.href = '/login/google';
+        });
+    </script>
+</body>
+</html>

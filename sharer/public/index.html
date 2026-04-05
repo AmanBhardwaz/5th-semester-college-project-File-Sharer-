@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVault - Premium File Encryption Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">🔐 SecureVault</a>
+            <div class="nav-items">
+                <a href="#" class="nav-link">Features</a>
+                <a href="http://localhost:5000/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link">Pricing</a>
+                <a href="#" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Secure Vault File Encryption and Sharing</h1>
+            <p class="hero-subtitle">Upload, encrypt, and share files with enterprise-level AES-128 security. Generate QR codes instantly and send secure links via email.</p>
+            <a href="#upload" class="hero-cta">
+                <span>🚀</span>
+                Start Encrypting Now
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Upload Section -->
+        <section id="upload" class="section">
+            <div class="glass-container upload-section">
+                <h2 class="upload-title">🔒 Secure Upload Zone</h2>
+                <p class="upload-description">Drop your files here for instant AES-256 encryption</p>
+                
+                <div class="upload-box" id="uploadBox">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drop files here or click to browse</div>
+                    <div class="upload-subtext">Maximum file size: 10MB</div>
+                    <input type="file" id="fileInput" accept="*/*">
+                </div>
+                
+                <button class="btn btn-primary" id="uploadBtn">
+                    <span>📤</span>
+                    Choose File
+                </button>
+
+                <div id="uploadProgress" class="progress-container" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Encrypting your file...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <div id="resultSection" class="section result-section glass-container" style="display: none;">
+            <h2>✅ File Encrypted Successfully! 🎉</h2>
+            <div class="result-content">
+                <div class="qr-container">
+                    <img id="qrCode" src="" alt="QR Code">
+                    <p class="qr-label">📱 Scan QR Code to Download</p>
+                </div>
+                <div class="file-details">
+                    <h3 id="fileName">File Name</h3>
+                    <p><strong>🆔 File ID:</strong> <span id="fileId"></span></p>
+                    <p><strong>🔗 Download URL:</strong></p>
+                    <input type="text" id="downloadUrl" readonly>
+                    
+                    <div class="email-section">
+                        <h4>📧 Send via Email</h4>
+                        <div class="email-input-group">
+                            <input type="email" id="recipientEmail" placeholder="✉️ Enter recipient's email address">
+                            <button class="btn btn-email" id="sendEmailBtn">📨 Send</button>
+                        </div>
+                        <p class="email-note">💌 Share the encrypted file link directly to the recipient's inbox</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-success" id="copyUrlBtn">📋 Copy URL</button>
+                        <button class="btn btn-info" id="downloadBtn">⬇️ Download</button>
+                        <button class="btn btn-secondary" id="uploadAnotherBtn">📤 Upload Another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files List Section -->
+        <div class="section">
+            <div class="files-section">
+                <div class="section-header">
+                    <h2>📚 Your Encrypted Files</h2>
+                    <button class="btn btn-secondary" id="refreshBtn">🔄 Refresh</button>
+                </div>
+                <div id="filesList" class="files-list">
+                    <p class="loading">Loading your secure files...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shared Spaces Section -->
+        <div class="section">
+            <div class="glass-container">
+                <div class="section-header">
+                    <h2>🌐 Shared Cloud Spaces</h2>
+                    <button class="btn btn-primary" id="createSpaceBtn">➕ Create Space</button>
+                </div>
+                
+                <div class="spaces-container">
+                    <div class="spaces-tabs">
+                        <button class="tab-btn active" data-tab="my-spaces">My Spaces</button>
+                        <button class="tab-btn" data-tab="shared-with-me">Shared With Me</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="my-spaces">
+                        <div id="mySpacesList" class="spaces-list">
+                            <p class="loading">Loading your spaces...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="shared-with-me">
+                        <div id="sharedSpacesList" class="spaces-list">
+                            <p class="loading">Loading shared spaces...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Modal -->
+        <div id="downloadModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Enter File ID to Download</h2>
+                <input type="text" id="downloadFileId" placeholder="Enter file ID">
+                <button class="btn btn-primary" id="modalDownloadBtn">Download</button>
+            </div>
+        </div>
+
+        <!-- Email Modal -->
+        <div id="emailModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeEmailModal">&times;</span>
+                <h2>📧 Send File via Email</h2>
+                <p class="modal-description">Enter the recipient's email address to share this encrypted file</p>
+                <div class="modal-form">
+                    <label for="modalRecipientEmail">Recipient Email:</label>
+                    <input type="email" id="modalRecipientEmail" placeholder="recipient@example.com">
+                    <button class="btn btn-email" id="modalSendEmailBtn">📨 Send Email</button>
+                </div>
+                <div id="emailSendingProgress" class="email-progress" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Sending email...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Space Modal -->
+        <div id="createSpaceModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeCreateSpaceModal">&times;</span>
+                <h2>➕ Create Shared Space</h2>
+                <p class="modal-description">Create a collaborative space to share encrypted files with your team</p>
+                <div class="modal-form">
+                    <label for="spaceName">Space Name:</label>
+                    <input type="text" id="spaceName" placeholder="Team Files, Project Documents, etc.">
+                    
+                    <label for="spaceDescription">Description (Optional):</label>
+                    <input type="text" id="spaceDescription" placeholder="Describe this shared space...">
+                    
+                    <label for="ownerName">Your Name:</label>
+                    <input type="text" id="ownerName" placeholder="Your name">
+                    
+                    <label for="ownerEmail">Your Email:</label>
+                    <input type="email" id="ownerEmail" placeholder="your-email@example.com">
+                    
+                    <button class="btn btn-primary" id="createSpaceSubmitBtn">🚀 Create Space</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Space Details Modal -->
+        <div id="spaceDetailsModal" class="modal" style="display: none;">
+            <div class="modal-content space-details-modal">
+                <span class="close" id="closeSpaceDetailsModal">&times;</span>
+                <h2 id="spaceDetailsTitle">📁 Space Name</h2>
+                
+                <div class="space-details-tabs">
+                    <button class="tab-btn active" data-tab="files">📚 Files</button>
+                    <button class="tab-btn" data-tab="members">👥 Members</button>
+                    <button class="tab-btn" data-tab="upload">📤 Upload</button>
+                </div>
+
+                <div class="tab-content active" id="files-tab">
+                    <div id="spaceFilesList" class="space-files-list">
+                        <p class="loading">Loading files...</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="members-tab">
+                    <div class="members-section">
+                        <h3>👥 Space Members</h3>
+                        <div id="membersList" class="members-list"></div>
+                        
+                        <h3 style="margin-top: 20px;">➕ Invite New Member</h3>
+                        <div class="invite-form">
+                            <input type="email" id="inviteMemberEmail" placeholder="member@example.com">
+                            <input type="text" id="inviteMemberName" placeholder="Member name (optional)">
+                            <select id="inviteMemberPermission">
+                                <option value="view">View Only</option>
+                                <option value="download">Download</option>
+                                <option value="upload">Upload</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <button class="btn btn-success" id="inviteMemberBtn">📧 Send Invitation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="upload-tab">
+                    <div class="space-upload-section">
+                        <h3>📤 Upload File to Space</h3>
+                        <input type="file" id="spaceFileInput" style="display: none;">
+                        <div class="upload-box" id="spaceUploadBox">
+                            <div class="upload-icon">📁</div>
+                            <p>Click to upload file to this shared space</p>
+                        </div>
+                        <button class="btn btn-primary" id="spaceUploadBtn">Choose File</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script src="shared-spaces.js"></script>
+</body>
+</html>

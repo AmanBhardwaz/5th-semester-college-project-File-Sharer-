@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SecureValut</title>
+    <link rel="stylesheet" href="abyssal-glow-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-lock"></i>
+                <span>SecureValut</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#help">Help</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-login" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="dashboard-container">
+            <div class="user-profile">
+                <div class="profile-header">
+                    <div class="profile-image-container">
+                        <img id="userPhoto" src="" alt="User Photo" class="profile-image" style="display: none;">
+                    </div>
+                    <div class="profile-info">
+                        <h1>Welcome, <span id="userName">User</span></h1>
+                        <p id="userEmail" class="user-email"></p>
+                    </div>
+                </div>
+                
+                <!-- Replace the dashboard stats with information about the website -->
+                <div class="website-info">
+                    <h2>About SecureValut</h2>
+                    <p>SecureValut is a comprehensive file management platform that provides secure file sharing, conversion, and compression services. Our platform ensures your data remains private and secure with end-to-end encryption.</p>
+                    <p>With our easy-to-use tools, you can efficiently manage your files while maintaining the highest level of security and privacy.</p>
+                </div>
+            </div>
+            
+            <!-- Replace the dashboard actions with three service boxes -->
+            <div class="dashboard-actions">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <!-- File Sharer Box -->
+                    <div class="service-box feature-card">
+                        <div class="service-icon feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>File Sharer</h3>
+                        <p>Securely share files with end-to-end encryption. Share large files with ease.</p>
+                        <a href="http://localhost:3000" class="btn-secondary-outline">Access File Sharer</a>
+                    </div>
+                    
+                    <!-- Converter Box -->
+                    <div class="service-box feature-card">
+                        <div class="service-icon feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>File Converter</h3>
+                        <p>Convert between different file formats securely on your device.</p>
+                        <a href="http://127.0.0.1:7000/" class="btn-secondary-outline">Access Converter</a>
+                    </div>
+                    
+                    <!-- Compressor Box -->
+                    <div class="service-box feature-card">
+                        <div class="service-icon feature-icon">
+                            <i class="fas fa-compress-alt"></i>
+                        </div>
+                        <h3>File Compressor</h3>
+                        <p>Reduce file sizes while maintaining quality for easier sharing.</p>
+                        <a href="http://127.0.0.1:5800" class="btn-secondary-outline">Access Compressor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SecureShare. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fetch user data from the API
+        async function fetchUserData() {
+            try {
+                const response = await fetch('/api/user');
+                const userData = await response.json();
+                
+                if (userData.loggedIn) {
+                    // Update user name
+                    if (userData.name) {
+                        document.getElementById('userName').textContent = userData.name;
+                    } else {
+                        document.getElementById('userName').textContent = 'User';
+                    }
+                    
+                    // Update user email
+                    if (userData.email) {
+                        document.getElementById('userEmail').textContent = userData.email;
+                    }
+                    
+                    // Update user photo if available
+                    if (userData.photo) {
+                        document.getElementById('userPhoto').src = userData.photo;
+                        document.getElementById('userPhoto').style.display = 'block';
+                    }
+                } else {
+                    // Redirect to login if not authenticated
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            window.location.href = '/logout';
+        });
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchUserData();
+        });
+    </script>
+</body>
+</html>
